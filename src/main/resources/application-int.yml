@@ -1,0 +1,26 @@
+# yml integration environment flavor
+# Spring Configuration
+spring:
+  application:
+    name: @project.name@
+
+server:
+  tomcat:
+    basedir: ${application.home}
+    max-threads: 1
+    accesslog:
+      enabled: true
+      renameOnRotate: true
+      # Reference for pattern: https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html
+      pattern: "%t lbip=%h identd=%l user=%u status=%s method=%m protocol=%H uri=%U  queryString=\"%q\" url=\"%{Host}i%U%q\" duration=%D responseSize=%b userAgent=\"%{User-Agent}i\""
+
+# Service specific
+write-ahead-logger:
+  enabled: true
+  path: "src/main/resources/logging/wal.txt"
+
+
+# Monitoring -NOT required as part of the task-
+
+# Deployment | env related configs not required - though can be supported by an infra repo using terraform
+# I'm a fan of 12 factor app methodology (https://12factor.net/config)
